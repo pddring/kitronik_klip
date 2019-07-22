@@ -8,7 +8,7 @@ class Robot:
         pin14.write_digital(0)
         pin15.write_digital(0)
         pin16.write_digital(0)
-
+        
     def set_speed(self, motor, speed):
         if speed > 0:
             if motor == "1":
@@ -25,7 +25,7 @@ class Robot:
             if motor == "2":
                 pin13.write_digital(0)
                 pin14.write_analog(speed)
-
+            
 r = Robot()
 radio.on()
 channel = 1
@@ -48,7 +48,7 @@ while True:
         if ch == str(channel):
             r.set_speed(motor, int(speed) * 1000)
             continue
-
+    
     # Both buttons means forwards
     if button_a.is_pressed() and button_b.is_pressed():
         r.set_speed("1", 1023)
@@ -62,7 +62,7 @@ while True:
         r.set_speed("2", 0)
         radio.send("2_0_" + str(channel))
         continue
-
+        
     # Button B means motor 2 forwards (right)
     if button_b.is_pressed():
         r.set_speed("1", 1023)
@@ -73,7 +73,7 @@ while True:
         r.set_speed("1", 0)
         radio.send("1_0_" + str(channel))
         continue
-
+        
     # Button A means motor 1 forwards (left)
     if button_a.is_pressed():
         r.set_speed("2", 1023)
@@ -84,6 +84,6 @@ while True:
         r.set_speed("2", 0)
         radio.send("2_0_" + str(channel))
         continue
-
+    
     # Wait for next input
     sleep(50)
